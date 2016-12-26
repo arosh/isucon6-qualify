@@ -1,0 +1,15 @@
+#!/bin/bash
+set -eux
+cp $HOME/webapp/conf/my.cnf /etc/mysql/my.cnf
+if [ -f /var/log/mysql/mysqld-slow.log ]; then
+    mv /var/log/mysql/mysqld-slow.log $HOME/log/mysql/mysqld-slow.log.$(date "+%Y%m%d_%H%M%S")
+fi
+if [ -f /var/log/nginx/access.log ]; then
+    mv /var/log/nginx/access.log $HOME/log/nginx/access.log.$(date "+%Y%m%d_%H%M%S")
+fi
+if [ -f /var/log/nginx/error.log ]; then
+    mv /var/log/nginx/error.log $HOME/log/nginx/error.log.$(date "+%Y%m%d_%H%M%S")
+fi
+systemctl restart mysql
+systemctl restart isuda.python
+systemctl restart nginx

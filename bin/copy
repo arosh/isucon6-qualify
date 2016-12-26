@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eux
+
+if [ -f /var/log/mysql/mysqld-slow.log ]; then
+  cp /var/log/mysql/mysqld-slow.log $HOME/mysqld-slow.log
+  chown isucon $HOME/mysqld-slow.log
+fi
+
+if [ -f /var/log/nginx/access.log ]; then
+  cp /var/log/nginx/access.log $HOME/access.log
+  chown isucon $HOME/access.log
+fi
+

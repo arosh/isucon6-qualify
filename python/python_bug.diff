@@ -1,0 +1,16 @@
+diff --git a/webapp/python/isutar.py b/webapp/python/isutar.py
+index 3f53b96..2d7d842 100644
+--- a/webapp/python/isutar.py
++++ b/webapp/python/isutar.py
+@@ -59,7 +59,11 @@ def post_stars():
+             raise
+
+     cur = dbh().cursor()
++    user = request.args.get('user', "")
++    if user == None or user == "":
++        user = request.form['user']
++
+-    cur.execute('INSERT INTO star (keyword, user_name, created_at) VALUES (%s, %s, NOW())', (keyword, request.args.get('user', '', )))
++    cur.execute('INSERT INTO star (keyword, user_name, created_at) VALUES (%s, %s, NOW())', (keyword, user))
+
+     return jsonify(result = 'ok')
